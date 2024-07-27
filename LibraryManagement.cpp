@@ -1,6 +1,7 @@
-#include<iostream> 
-#include<conio.h>
-#include<string>
+#include <iostream>
+#include <conio.h>
+#include <string>
+
 using namespace std;
 
 class Book {
@@ -8,24 +9,24 @@ class Book {
         string bookNumber, title, author, edition, publication;
     
     public:
-        void setBookNumber(string a) { bookNumber = a; }
-        void setTitle(string b) { title = b; }
-        void setAuthor(string c) { author = c; }
-        void setEdition(string d) { edition = d; }
-        void setPublication(string e) { publication = e; }
+        void setBookNumber(string bookNumber) { this->bookNumber = bookNumber; }
+        void setTitle(string title) { this->title = title; }
+        void setAuthor(string author) { this->author = author; }
+        void setEdition(string edition) { this->edition = edition; }
+        void setPublication(string publication) { this->publication = publication; }
 
-        string getBookNumber() { return bookNumber; }
-        string getTitle() { return title; }
-        string getAuthor() { return author; }
-        string getEdition() { return edition; }
-        string getPublication() { return publication; }
+        string getBookNumber() { return this->bookNumber; }
+        string getTitle() { return this->title; }
+        string getAuthor() { return this->author; }
+        string getEdition() { return this->edition; }
+        string getPublication() { return this->publication; }
 
         void displayBook() {
-            cout << "BookNumber: " << bookNumber << endl;
-            cout << "Title: " << title << endl;
-            cout << "Author: " << author << endl;
-            cout << "Edition: " << edition << endl;
-            cout << "Publication: " << publication << endl;
+            cout << "BookNumber: " << this->bookNumber << endl;
+            cout << "Title: " << this->title << endl;
+            cout << "Author: " << this->author << endl;
+            cout << "Edition: " << this->edition << endl;
+            cout << "Publication: " << this->publication << endl;
         }
 };
 
@@ -34,18 +35,18 @@ class Member {
         string memberId, name, email;
     
     public:
-        void setMemberId(string id) { memberId = id; }
-        void setName(string n) { name = n; }
-        void setEmail(string e) { email = e; }
+        void setMemberId(string memberId) { this->memberId = memberId; }
+        void setName(string name) { this->name = name; }
+        void setEmail(string email) { this->email = email; }
 
-        string getMemberId() { return memberId; }
-        string getName() { return name; }
-        string getEmail() { return email; }
+        string getMemberId() { return this->memberId; }
+        string getName() { return this->name; }
+        string getEmail() { return this->email; }
 
         void displayMember() {
-            cout << "Member ID: " << memberId << endl;
-            cout << "Name: " << name << endl;
-            cout << "Email: " << email << endl;
+            cout << "Member ID: " << this->memberId << endl;
+            cout << "Name: " << this->name << endl;
+            cout << "Email: " << this->email << endl;
         }
 };
 
