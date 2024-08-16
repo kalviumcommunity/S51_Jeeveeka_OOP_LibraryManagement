@@ -1,7 +1,5 @@
 #include <iostream>
-#include <conio.h>
 #include <string>
-
 using namespace std;
 
 class Book {
@@ -50,15 +48,21 @@ public:
     }
 };
 
-void addBook(Book books[], int &bookCount) {
-    if (bookCount >= 2) {
-        cout << "Book storage is full. You need to delete a book before adding a new one." << endl;
-        return;
+void addBook(Book* &books, int &bookCount, int &capacity) {
+    if (bookCount >= capacity) {
+        cout << "Book storage is full. Expanding storage capacity..." << endl;
+        capacity *= 2;
+        Book* newBooks = new Book[capacity];
+        for (int i = 0; i < bookCount; i++) {
+            newBooks[i] = books[i];
+        }
+        delete[] books;
+        books = newBooks;
     }
 
     string bookNumber, title, author, edition, publication;
     cout << "Enter details for Book " << bookCount + 1 << endl;
-    cout << "Book Number: "; cin >> bookNumber;
+    cout << "Book Number: "; cin >> bookNumber; cin.ignore();
     cout << "Title: "; getline(cin, title);
     cout << "Author: "; getline(cin, author);
     cout << "Edition: "; getline(cin, edition);
@@ -73,16 +77,22 @@ void addBook(Book books[], int &bookCount) {
     cout << "Book added successfully." << endl << endl;
 }
 
-void addMember(Member members[], int &memberCount) {
-    if (memberCount >= 2) {
-        cout << "Member storage is full." << endl;
-        return;
+void addMember(Member* &members, int &memberCount, int &capacity) {
+    if (memberCount >= capacity) {
+        cout << "Member storage is full. Expanding storage capacity..." << endl;
+        capacity *= 2;
+        Member* newMembers = new Member[capacity];
+        for (int i = 0; i < memberCount; i++) {
+            newMembers[i] = members[i];
+        }
+        delete[] members;
+        members = newMembers;
     }
 
     string memberId, name, email;
     cout << "Enter details for Member " << memberCount + 1 << endl;
-    cout << "Member ID: "; cin >> memberId;
-    cout << "Name: ";  getline(cin, name);
+    cout << "Member ID: "; cin >> memberId; cin.ignore();
+    cout << "Name: "; getline(cin, name);
     cout << "Email: "; getline(cin, email);
 
     members[memberCount].setMemberId(memberId);
@@ -92,7 +102,7 @@ void addMember(Member members[], int &memberCount) {
     cout << "Member added successfully." << endl << endl;
 }
 
-void displayBooks(Book books[], int bookCount) {
+void displayBooks(Book* books, int bookCount) {
     cout << "Book Details:" << endl;
     for (int i = 0; i < bookCount; ++i) {
         books[i].displayBook();
@@ -100,7 +110,7 @@ void displayBooks(Book books[], int bookCount) {
     }
 }
 
-void displayMembers(Member members[], int memberCount) {
+void displayMembers(Member* members, int memberCount) {
     cout << "Member Details:" << endl;
     for (int i = 0; i < memberCount; ++i) {
         members[i].displayMember();
@@ -108,7 +118,7 @@ void displayMembers(Member members[], int memberCount) {
     }
 }
 
-void deleteBook(Book books[], int &bookCount) {
+void deleteBook(Book* &books, int &bookCount) {
     if (bookCount == 0) {
         cout << "No books to delete." << endl;
         return;
@@ -140,8 +150,12 @@ void deleteBook(Book books[], int &bookCount) {
 }
 
 int main() {
-    Book books[2];
-    Member members[2];
+    int bookCapacity = 2;
+    int memberCapacity = 2;
+
+    Book* books = new Book[bookCapacity];
+    Member* members = new Member[memberCapacity];
+
     int bookCount = 0;
     int memberCount = 0;
 
@@ -159,10 +173,10 @@ int main() {
 
         switch (choice) {
             case 1:
-                addBook(books, bookCount);
+                addBook(books, bookCount, bookCapacity);
                 break;
             case 2:
-                addMember(members, memberCount);
+                addMember(members, memberCount, memberCapacity);
                 break;
             case 3:
                 displayBooks(books, bookCount);
@@ -175,6 +189,8 @@ int main() {
                 break;
             case 6:
                 cout << "Exiting program..." << endl;
+                delete[] books;
+                delete[] members;
                 return 0;
             default:
                 cout << "Invalid choice. Please try again." << endl;
