@@ -5,8 +5,17 @@ using namespace std;
 class Book {
 private:
     string bookNumber, title, author, edition, publication;
+    static int totalBooks; 
 
 public:
+    Book() {
+        totalBooks++; 
+    }
+    
+    ~Book() {
+        totalBooks--; 
+    }
+
     void setBookNumber(string bookNumber) { this->bookNumber = bookNumber; }
     void setTitle(string title) { this->title = title; }
     void setAuthor(string author) { this->author = author; }
@@ -20,19 +29,32 @@ public:
     string getPublication() { return this->publication; }
 
     void displayBook() {
-        cout << "BookNumber: " << this->bookNumber << endl;
+        cout << "Book Number: " << this->bookNumber << endl;
         cout << "Title: " << this->title << endl;
         cout << "Author: " << this->author << endl;
         cout << "Edition: " << this->edition << endl;
         cout << "Publication: " << this->publication << endl;
     }
+
+    static int getTotalBooks() { return totalBooks; } 
 };
+
+int Book::totalBooks = 0; 
 
 class Member {
 private:
     string memberId, name, email;
+    static int totalMembers; 
 
 public:
+    Member() {
+        totalMembers++;
+    }
+
+    ~Member() {
+        totalMembers--;
+    }
+
     void setMemberId(string memberId) { this->memberId = memberId; }
     void setName(string name) { this->name = name; }
     void setEmail(string email) { this->email = email; }
@@ -46,7 +68,11 @@ public:
         cout << "Name: " << this->name << endl;
         cout << "Email: " << this->email << endl;
     }
+
+    static int getTotalMembers() { return totalMembers; } 
 };
+
+int Member::totalMembers = 0; 
 
 void addBook(Book* &books, int &bookCount, int &capacity) {
     if (bookCount >= capacity) {
@@ -108,6 +134,7 @@ void displayBooks(Book* books, int bookCount) {
         books[i].displayBook();
         cout << endl;
     }
+    cout << "Total Books: " << Book::getTotalBooks() << endl; 
 }
 
 void displayMembers(Member* members, int memberCount) {
@@ -116,6 +143,7 @@ void displayMembers(Member* members, int memberCount) {
         members[i].displayMember();
         cout << endl;
     }
+    cout << "Total Members: " << Member::getTotalMembers() << endl;
 }
 
 void deleteBook(Book* &books, int &bookCount) {
@@ -150,8 +178,12 @@ void deleteBook(Book* &books, int &bookCount) {
 }
 
 int main() {
-    int bookCapacity = 2;
-    int memberCapacity = 2;
+    int bookCapacity, memberCapacity;
+
+    cout << "Enter initial capacity for books: ";
+    cin >> bookCapacity;
+    cout << "Enter initial capacity for members: ";
+    cin >> memberCapacity;
 
     Book* books = new Book[bookCapacity];
     Member* members = new Member[memberCapacity];
