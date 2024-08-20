@@ -36,7 +36,9 @@ public:
         cout << "Publication: " << this->publication << endl;
     }
 
-    // static int getTotalBooks() { return totalBooks; } 
+    static int getTotalBooks() { 
+        return totalBooks; 
+    } 
 };
 
 int Book::totalBooks = 0; 
@@ -69,7 +71,9 @@ public:
         cout << "Email: " << this->email << endl;
     }
 
-    
+    static int getTotalMembers() { 
+        return totalMembers; 
+    } 
 };
 
 int Member::totalMembers = 0; 
