@@ -2,8 +2,14 @@
 #include <string>
 using namespace std;
 
-class Book {
-// Abstraction
+class LibraryEntity {
+public:
+    virtual void displayEntity() const = 0; 
+
+    virtual ~LibraryEntity() {}
+};
+
+class Book : public LibraryEntity {
 private:
     string bookNumber, title, author, edition, publication;
     static int totalBooks; 
@@ -24,12 +30,9 @@ public:
     void setPublication(string publication) { this->publication = publication; }
 
     string getBookNumber() { return this->bookNumber; }
-    string getTitle() { return this->title; }
-    string getAuthor() { return this->author; }
-    string getEdition() { return this->edition; }
-    string getPublication() { return this->publication; }
 
-    void displayBook() {
+    // Overriding the virtual function to display book details
+    void displayEntity() const override {
         cout << "Book Number: " << this->bookNumber << endl;
         cout << "Title: " << this->title << endl;
         cout << "Author: " << this->author << endl;
@@ -44,8 +47,7 @@ public:
 
 int Book::totalBooks = 0; 
 
-class Member {
-// Abstraction
+class Member : public LibraryEntity {
 private:
     string memberId, name, email;
     static int totalMembers; 
@@ -64,10 +66,8 @@ public:
     void setEmail(string email) { this->email = email; }
 
     string getMemberId() { return this->memberId; }
-    string getName() { return this->name; }
-    string getEmail() { return this->email; }
 
-    void displayMember() {
+    void displayEntity() const override {
         cout << "Member ID: " << this->memberId << endl;
         cout << "Name: " << this->name << endl;
         cout << "Email: " << this->email << endl;
@@ -134,22 +134,12 @@ void addMember(Member* &members, int &memberCount, int &capacity) {
     cout << "Member added successfully." << endl << endl;
 }
 
-void displayBooks(Book* books, int bookCount) {
-    cout << "Book Details:" << endl;
-    for (int i = 0; i < bookCount; ++i) {
-        books[i].displayBook();
+void displayLibraryEntities(LibraryEntity** entities, int count) {
+    cout << "Library Entity Details:" << endl;
+    for (int i = 0; i < count; ++i) {
+        entities[i]->displayEntity();
         cout << endl;
     }
-    cout << "Total Books: " << Book::getTotalBooks() << endl; 
-}
-
-void displayMembers(Member* members, int memberCount) {
-    cout << "Member Details:" << endl;
-    for (int i = 0; i < memberCount; ++i) {
-        members[i].displayMember();
-        cout << endl;
-    }
-    cout << "Total Members: " << Member::getTotalMembers() << endl;
 }
 
 void deleteBook(Book* &books, int &bookCount) {
@@ -217,10 +207,10 @@ int main() {
                 addMember(members, memberCount, memberCapacity);
                 break;
             case 3:
-                displayBooks(books, bookCount);
+                displayLibraryEntities((LibraryEntity**)books, bookCount);
                 break;
             case 4:
-                displayMembers(members, memberCount);
+                displayLibraryEntities((LibraryEntity**)members, memberCount);
                 break;
             case 5:
                 deleteBook(books, bookCount);
