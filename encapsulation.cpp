@@ -3,6 +3,7 @@
 using namespace std;
 
 class Book {
+// Abstraction
 private:
     string bookNumber, title, author, edition, publication;
     static int totalBooks; 
@@ -16,14 +17,12 @@ public:
         totalBooks--; 
     }
 
-    // Mutators (Setters)
     void setBookNumber(string bookNumber) { this->bookNumber = bookNumber; }
     void setTitle(string title) { this->title = title; }
     void setAuthor(string author) { this->author = author; }
     void setEdition(string edition) { this->edition = edition; }
     void setPublication(string publication) { this->publication = publication; }
 
-    // Accessors (Getters)
     string getBookNumber() { return this->bookNumber; }
     string getTitle() { return this->title; }
     string getAuthor() { return this->author; }
@@ -46,6 +45,7 @@ public:
 int Book::totalBooks = 0; 
 
 class Member {
+// Abstraction
 private:
     string memberId, name, email;
     static int totalMembers; 
@@ -59,12 +59,10 @@ public:
         totalMembers--;
     }
 
-    // Mutators (Setters)
     void setMemberId(string memberId) { this->memberId = memberId; }
     void setName(string name) { this->name = name; }
     void setEmail(string email) { this->email = email; }
 
-    // Accessors (Getters)
     string getMemberId() { return this->memberId; }
     string getName() { return this->name; }
     string getEmail() { return this->email; }
