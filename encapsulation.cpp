@@ -4,34 +4,34 @@ using namespace std;
 
 class LibraryEntity {
 public:
-    virtual void displayEntity() const = 0; 
-
+    virtual void displayEntity() const = 0;
     virtual ~LibraryEntity() {}
 };
 
 class Book : public LibraryEntity {
 private:
     string bookNumber, title, author, edition, publication;
-    static int totalBooks; 
+    static int totalBooks;
 
 public:
+    //default constructor
     Book() {
-        totalBooks++; 
-    }
-    
-    ~Book() {
-        totalBooks--; 
+        totalBooks++;
     }
 
-    void setBookNumber(string bookNumber) { this->bookNumber = bookNumber; }
-    void setTitle(string title) { this->title = title; }
-    void setAuthor(string author) { this->author = author; }
-    void setEdition(string edition) { this->edition = edition; }
-    void setPublication(string publication) { this->publication = publication; }
+    //parameterised constructor
+    Book(string bookNumber, string title, string author, string edition, string publication)
+        : bookNumber(bookNumber), title(title), author(author), edition(edition), publication(publication) {
+        totalBooks++;
+    }
+
+    //destructor
+    ~Book() {
+        totalBooks--;
+    }
 
     string getBookNumber() { return this->bookNumber; }
 
-    // Overriding the virtual function to display book details
     void displayEntity() const override {
         cout << "Book Number: " << this->bookNumber << endl;
         cout << "Title: " << this->title << endl;
@@ -40,30 +40,34 @@ public:
         cout << "Publication: " << this->publication << endl;
     }
 
-    static int getTotalBooks() { 
-        return totalBooks; 
-    } 
+    static int getTotalBooks() {
+        return totalBooks;
+    }
 };
 
-int Book::totalBooks = 0; 
+int Book::totalBooks = 0;
 
 class Member : public LibraryEntity {
 private:
     string memberId, name, email;
-    static int totalMembers; 
+    static int totalMembers;
 
 public:
+    //default constructor
     Member() {
         totalMembers++;
     }
 
+    //parameterised constructor
+    Member(string memberId, string name, string email)
+        : memberId(memberId), name(name), email(email) {
+        totalMembers++;
+    }
+
+    //destructor
     ~Member() {
         totalMembers--;
     }
-
-    void setMemberId(string memberId) { this->memberId = memberId; }
-    void setName(string name) { this->name = name; }
-    void setEmail(string email) { this->email = email; }
 
     string getMemberId() { return this->memberId; }
 
@@ -73,13 +77,14 @@ public:
         cout << "Email: " << this->email << endl;
     }
 
-    static int getTotalMembers() { 
-        return totalMembers; 
-    } 
+    static int getTotalMembers() {
+        return totalMembers;
+    }
 };
 
 int Member::totalMembers = 0;
 
+//parameterised constructor
 void addBook(Book* &books, int &bookCount, int &capacity) {
     if (bookCount >= capacity) {
         cout << "Book storage is full. Expanding storage capacity..." << endl;
@@ -100,15 +105,14 @@ void addBook(Book* &books, int &bookCount, int &capacity) {
     cout << "Edition: "; getline(cin, edition);
     cout << "Publication: "; getline(cin, publication);
 
-    books[bookCount].setBookNumber(bookNumber);
-    books[bookCount].setTitle(title);
-    books[bookCount].setAuthor(author);
-    books[bookCount].setEdition(edition);
-    books[bookCount].setPublication(publication);
+    // Createing a new book using the parameterized constructor
+    books[bookCount] = Book(bookNumber, title, author, edition, publication);
     bookCount++;
-    cout << "Book added successfully." << endl << endl;
+
+    cout << "Book added successfully using parameterized constructor." << endl << endl;
 }
 
+//parameterised constructor
 void addMember(Member* &members, int &memberCount, int &capacity) {
     if (memberCount >= capacity) {
         cout << "Member storage is full. Expanding storage capacity..." << endl;
@@ -127,11 +131,11 @@ void addMember(Member* &members, int &memberCount, int &capacity) {
     cout << "Name: "; getline(cin, name);
     cout << "Email: "; getline(cin, email);
 
-    members[memberCount].setMemberId(memberId);
-    members[memberCount].setName(name);
-    members[memberCount].setEmail(email);
+    // Createing a new member using the parameterized constructor
+    members[memberCount] = Member(memberId, name, email);
     memberCount++;
-    cout << "Member added successfully." << endl << endl;
+
+    cout << "Member added successfully using parameterized constructor." << endl << endl;
 }
 
 void displayLibraryEntities(LibraryEntity** entities, int count) {
