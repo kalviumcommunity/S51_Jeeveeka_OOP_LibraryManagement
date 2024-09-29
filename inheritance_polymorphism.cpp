@@ -4,7 +4,7 @@ using namespace std;
 
 class LibraryEntity {
 public:
-    virtual void displayEntity() const = 0; // Pure virtual function
+    virtual void displayEntity() const = 0; 
     virtual ~LibraryEntity() {}
 };
 
@@ -62,7 +62,7 @@ public:
 
 int Member::totalMembers = 0;
 
-// Inheriting from Book
+// Single Inheritance
 class DigitalBook : public Book {
 private:
     string fileSize, format;
@@ -72,7 +72,7 @@ public:
         : Book(bookNumber, title, author, edition, publication), fileSize(fileSize), format(format) {}
 
     void displayEntity() const override {
-        Book::displayEntity();  // Call base class displayEntity
+        Book::displayEntity();  
         cout << "File Size: " << fileSize << endl;
         cout << "Format: " << format << endl;
     }
@@ -88,13 +88,12 @@ public:
         : Member(memberId, name, email), Book(bookNumber, title, author, edition, publication), subscriptionType(subscriptionType) {}
 
     void displayEntity() const override {
-        Member::displayEntity();  // Display member details
-        Book::displayEntity();    // Display book details
+        Member::displayEntity();  
+        Book::displayEntity();   
         cout << "Subscription Type: " << subscriptionType << endl;
     }
 };
 
-// Function to add a book
 void addBook(LibraryEntity** &books, int &bookCount, int &capacity) {
     if (bookCount >= capacity) {
         capacity *= 2;
@@ -120,7 +119,6 @@ void addBook(LibraryEntity** &books, int &bookCount, int &capacity) {
     cout << "Book added successfully." << endl << endl;
 }
 
-// Function to add a digital book
 void addDigitalBook(LibraryEntity** &books, int &bookCount, int &capacity) {
     if (bookCount >= capacity) {
         capacity *= 2;
@@ -148,7 +146,6 @@ void addDigitalBook(LibraryEntity** &books, int &bookCount, int &capacity) {
     cout << "Digital Book added successfully." << endl << endl;
 }
 
-// Function to add a member
 void addMember(LibraryEntity** &members, int &memberCount, int &capacity) {
     if (memberCount >= capacity) {
         capacity *= 2;
@@ -172,7 +169,6 @@ void addMember(LibraryEntity** &members, int &memberCount, int &capacity) {
     cout << "Member added successfully." << endl << endl;
 }
 
-// Function to display books
 void displayBooks(LibraryEntity** books, int bookCount) {
     if (bookCount == 0) {
         cout << "No books to display!" << endl;
@@ -195,12 +191,11 @@ void displayMembers(LibraryEntity** members, int memberCount) {
 
     for (int i = 0; i < memberCount; i++) {
         cout << "Member " << i + 1 << " details:" << endl;
-        members[i]->displayEntity();  // Polymorphic behavior
+        members[i]->displayEntity();  
         cout << endl;
     }
 }
 
-// Menu system
 int main() {
     int bookCapacity = 2;
     LibraryEntity** books = new LibraryEntity*[bookCapacity];
