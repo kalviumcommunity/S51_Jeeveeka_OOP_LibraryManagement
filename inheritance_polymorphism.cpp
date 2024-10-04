@@ -2,9 +2,10 @@
 #include <string>
 using namespace std;
 
+// Abstract class
 class LibraryEntity {
 public:
-    virtual void displayEntity() const = 0; 
+    virtual void displayEntity() const = 0; // pure virtual function
     virtual ~LibraryEntity() {}
 };
 
