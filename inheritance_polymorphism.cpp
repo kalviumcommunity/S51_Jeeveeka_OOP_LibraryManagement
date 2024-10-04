@@ -23,6 +23,7 @@ public:
 
     ~Book() { totalBooks--; }
 
+    //Runtime polymorphism
     void displayEntity() const override {
         cout << "Book Number: " << bookNumber << endl;
         cout << "Title: " << title << endl;
@@ -51,6 +52,7 @@ public:
 
     ~Member() { totalMembers--; }
 
+    //Runtime polymorphism
     void displayEntity() const override {
         cout << "Member ID: " << memberId << endl;
         cout << "Name: " << name << endl;
@@ -71,6 +73,7 @@ public:
     DigitalBook(string bookNumber, string title, string author, string edition, string publication, string fileSize, string format)
         : Book(bookNumber, title, author, edition, publication), fileSize(fileSize), format(format) {}
 
+    //Runtime polymorphism
     void displayEntity() const override {
         Book::displayEntity();  
         cout << "File Size: " << fileSize << endl;
@@ -87,6 +90,7 @@ public:
     PremiumMember(string memberId, string name, string email, string bookNumber, string title, string author, string edition, string publication, string subscriptionType)
         : Member(memberId, name, email), Book(bookNumber, title, author, edition, publication), subscriptionType(subscriptionType) {}
 
+    //Runtime polymorphism
     void displayEntity() const override {
         Member::displayEntity();  
         Book::displayEntity();   
@@ -177,12 +181,11 @@ void displayBooks(LibraryEntity** books, int bookCount) {
 
     for (int i = 0; i < bookCount; i++) {
         cout << "Book " << i + 1 << " details:" << endl;
-        books[i]->displayEntity();  // Polymorphic behavior
+        books[i]->displayEntity();  
         cout << endl;
     }
 }
 
-// Function to display members
 void displayMembers(LibraryEntity** members, int memberCount) {
     if (memberCount == 0) {
         cout << "No members to display!" << endl;
