@@ -64,6 +64,7 @@ public:
 
 int Member::totalMembers = 0;
 
+// open closed principle
 class DigitalBook : public Book {
 private:
     string fileSize, format;
@@ -79,6 +80,7 @@ public:
     }
 };
 
+// open closed principle
 class PremiumMember : public Member, public Book {
 private:
     string subscriptionType;
