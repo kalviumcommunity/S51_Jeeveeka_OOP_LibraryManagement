@@ -2,6 +2,7 @@
 #include <string>
 using namespace std;
 
+// liskov substitution principle
 class LibraryEntity {
 public:
     virtual void displayEntity() const = 0; 
@@ -64,7 +65,7 @@ public:
 
 int Member::totalMembers = 0;
 
-// open closed principle
+// open closed principle and liskov substitution principle
 class DigitalBook : public Book {
 private:
     string fileSize, format;
